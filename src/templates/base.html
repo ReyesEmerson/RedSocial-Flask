@@ -1,0 +1,21 @@
+{% extends "./home.html" %}
+
+{% block body %}
+
+<h1>Bienvenido</h1>
+<h2>Enviar mensaje</h2>
+<form action="/enviar_mensaje" method="POST">
+    <input type="hidden" name="emisor_id" value="{{ emisor_id }}">
+    <label for="usuario_destino">Selecciona un usuario:</label>
+    <select name="remitente_id" id="usuario_destino">
+        {% for usuario in usuarios %}
+        <option value="{{ usuario.id }}">{{ usuario.nombre}}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <textarea name="mensaje" rows="4" cols="50"></textarea>
+    <br>
+    <button type="submit">Enviar mensaje</button>
+</form>
+
+{% endblock  %}
