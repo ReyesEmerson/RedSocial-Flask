@@ -1,25 +1,28 @@
-{% extends './home.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Inicio Sesión</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+</head>
+<body>
+	<div class="container">
+		<div class="contact-box">
+			<div class="left"></div>
+			<div class="right">
+				<h2>Inicio de Sesion</h2>
+                <form action="/login" method="POST">
+                    <br>
+                    <input type="text" class="field" id="correo" name="correo" placeholder="example@hotmail.com">
+                    <input type="password" class="field" id="password" name="password" placeholder="Ingrese contraseña">
+                    <button class="btn">Ingresar</button>
+                    <a href="/registro" class="btn-registro">Registro</a>
+                </form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
 
 
-
-{% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-{% endblock %}
-
-{% block body %}
-<form class="form-signin" action="/login" method="POST">
-  
-    <img class="mb-4" src="{{ url_for('static', filename='img/griffith1.png') }}" alt="" width="100" height="60">
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <div class="form-floating">
-        <input type="text" class="form-control" id="correo" name="correo" placeholder="Username">
-        <label for="username">Correo</label>
-    </div>
-    <div class="form-floating mt-2">
-        <input type="password" class="form-control" name="password" placeholder="Password">
-        <label for="password">Contraseña</label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <a href="/registro">Registrarse</a>
-</form>
-{% endblock %}

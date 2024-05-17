@@ -39,10 +39,22 @@ class ModelRegistro():
     def create_registro(self, db, registro):
         try:
             cursor = db.connection.cursor()
-            sql = """INSERT INTO user_login (correo, password, user) VALUES (%s, %s, %s)"""
-            cursor.execute(sql, (registro.correo, registro.password, registro.user))
+            sql = """INSERT INTO user_login (correo, password, user, apellido, celular) VALUES (%s, %s, %s, %s, %s)"""
+            cursor.execute(sql, (registro.correo, registro.password, registro.user, registro.apellido, registro.celular))
             db.connection.commit()
             return True
         except Exception as ex:
-            raise Exception(ex)
-            return False    
+            raise Exception(ex)  
+        
+class ModelEditar():
+    
+    def actualizar(self, db, usuario_id,  correo, user, apellido, celular):
+        try:
+            cursor = db.connection.cursor()
+            sql = """UPDATE user_login SET correo = %s, user = %s, apellido = %s, celular = %s WHERE id = %s"""
+            cursor.execute(sql, (correo, user, apellido, celular, usuario_id))
+            db.connection.commit()
+            return True
+        except Exception as ex:
+            db.connection.rollback()
+            raise   

@@ -1,21 +1,95 @@
-{% extends "./home.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedSocial Olimpiada</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+  
+</head>
+<body class="vh-100">
+    {% for usuario in usuarios %}
+        {% if usuario[0] == session.usuario_id %}
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary h-100" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-4">RedSocial</span>
+        </a>
+        <hr>
+        <div class="d-flex align-items-center mb-3">
+            <img src="{{ url_for('static', filename='img/default.png') }}" alt="Profile Image" class="rounded-circle me-2" width="40" height="40">
+            <div>
+                <div class="fw-bold">{{ usuario[2] }}</div>
+                <div class="text-muted">{{ usuario[1] }}</div>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#editModal">
+                <i class="bi bi-pencil"></i>
+            </button>                    
+        </div>
+        <div class="p-3 bg-body-tertiary" >
+            <div class="user-info mb-2">
+                <div class="fw-bold">Datos de usuario:</div>
+                <div class="mb-2">Correo: {{ usuario[1] }}</div>
+                <div class="mb-2">Nombre: {{ usuario[2] }}</div>
+                <div class="mb-2">Apellido: {{ usuario[3] }}</div>
+                <div class="mb-2">Celular: {{ usuario[4] }}</div>
+            </div>        
+        </div>
+        <div class="p-3 bg-body-tertiary" >
+            <div class="user-info mb-2">
+                <div class="fw-bold">Estudios: </div>
+                <div class="mb-2">{{ usuario[5] }}</div>
+            </div>        
+        </div>
+    </div>
 
-{% block body %}
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Información</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" action="/edit_user" method="post">
+                        <div class="mb-3">
+                            <label for="editCorreo" class="form-label">Correo</label>
+                            <input type="email" class="form-control" id="correo" name="correo" value="{{ usuario[1] }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUser" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="user" name="user" value="{{ usuario[2] }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editApellido" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" value="{{ usuario[3] }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCelular" class="form-label">Celular</label>
+                            <input type="text" class="form-control" id="celular" name="celular" value="{{ usuario[4] }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endif %}
+    {% endfor %}
 
-<h1>Bienvenido</h1>
-<h2>Enviar mensaje</h2>
-<form action="/enviar_mensaje" method="POST">
-    <input type="hidden" name="emisor_id" value="{{ emisor_id }}">
-    <label for="usuario_destino">Selecciona un usuario:</label>
-    <select name="remitente_id" id="usuario_destino">
-        {% for usuario in usuarios %}
-        <option value="{{ usuario.id }}">{{ usuario.nombre}}</option>
-        {% endfor %}
-    </select>
-    <br>
-    <textarea name="mensaje" rows="4" cols="50"></textarea>
-    <br>
-    <button type="submit">Enviar mensaje</button>
-</form>
+    <div class="sidebar-right fixed-top fixed-right">
+        <ul>
+            <li><a href="#">Opción 1</a></li>
+            <li><a href="#">Opción 2</a></li>
+            <li><a href="#">Opción 3</a></li>
+            <!-- Agrega más opciones según sea necesario -->
+        </ul>
+    </div>
 
-{% endblock  %}
+  <!-- Bootstrap JavaScript (requerido para los componentes de Bootstrap) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

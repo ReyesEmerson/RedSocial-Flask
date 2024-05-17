@@ -23,7 +23,7 @@ class ModelMensaje():
     def usuario_db(self, db):
         try:
             cursor = db.connection.cursor()
-            cursor.execute("SELECT id, correo, user FROM user_login")
+            cursor.execute("SELECT id, correo, user, apellido, celular, id_estudio FROM user_login")
             usuarios = cursor.fetchall()
             return usuarios
         except Exception as e:
